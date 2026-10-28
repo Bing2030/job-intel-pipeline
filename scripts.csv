@@ -1,0 +1,26 @@
+﻿script,stage,purpose,inputs_outputs,command_notes
+jobintel_paths.py,公共,数据目录解析（--data-dir / $JOBINTEL_DATA_DIR / 默认 ./tmp-jobs-<yyyyMMddHHmm>）,无文件；被所有脚本 import,不单独运行
+run_pipeline.py,编排,官方链路一键运行：4 个采集器 → merge → filter（同一数据目录）,写 <data-dir>/official/*；末尾打印各阶段行数,"--data-dir DIR；--skip moka,feishu；--max-pages N；任一阶段失败或采集为空则退出码 1"
+official_collect_v2.py,官方采集,腾讯/阿里/字节官方 API,写 <data-dir>/official/jobs_official_raw.csv（三家合并）和 jobs_official.csv,--company tencent|alibaba|bytedance|all --max-pages N；同一数据目录内重复运行会覆盖这两个文件（含 --company 单家运行）
+official_collect_v3.py,官方采集,蚂蚁/京东/小红书/DeepSeek,写 <data-dir>/official/_batch2_raw.csv；merge 读取,直接运行；重复运行会覆盖该文件；蚂蚁可能返回系统繁忙
+official_feishu_startups.py,官方采集,MiniMax/01.AI Feishu Jobs,写 <data-dir>/official/jobs_official_startups.csv,直接运行；重复运行会覆盖
+official_moka_collect.py,官方采集,Moonshot Moka 列表（Headless Chrome）,写 <data-dir>/official/jobs_official_moonshot.csv；渲染后的 DOM 存 raw/moka/,需要 Chrome（路径见 TROUBLESHOOTING）
+official_moka_detail.py,官方采集,Moka 详情页（实验；内置 7 个固定岗位）,写 <data-dir>/official/jobs_official_deepseek.csv（merge 不读取）,直接运行；可能慢/不稳定
+merge_official.py,合并,合并分源官方 JD、目标城市/岗位族初筛、Excel,读 <data-dir>/official 下的 raw/_batch2_raw/startups/moonshot；可选读 processed/jobs_master_merged.csv 里的美团；写 all/target/xlsx,先跑采集器；没有任何来源有数据时退出码 1
+filter_official.py,过滤,按 5 类目标岗位严格过滤 + removed 原因,读 jobs_official_all.csv；写 jobs_official_filtered.csv/target_level/removed/xlsx,需先 merge；会覆盖同目录下已有的 filtered 文件
+boss_parse.py,第三方,BOSS 列表解析 + 自定义薪资字体解码,读指定 HTML；写 <data-dir>/processed/jobs_boss.csv,boss_parse.py <html> [--data-dir DIR]
+boss_batch_parse.py,第三方,BOSS 批量列表解析,读 <data-dir>/raw/boss/pages/<city>_<keyword>.html；写 processed/jobs_boss_batch.csv,可用 --src 指定页面目录
+boss_detail_parse.py,第三方,BOSS 详情 JD 解析,读 <data-dir>/raw/boss/details/<job_id>.html 和 processed/jobs_boss_batch.csv；写 processed/jobs_boss_detail.csv,需先跑 boss_batch_parse.py
+meituan_scraper.py,官方采集,美团官方搜索列表（Chrome）,写 <data-dir>/processed/jobs_meituan.csv；缓存 raw/meituan/,需要 Chrome；缓存页不会过期（复用同一数据目录时重采前先删 raw/meituan）
+meituan_detail.py,官方采集,美团详情 JD,读 processed/jobs_meituan.csv；写 processed/jobs_meituan_detail.csv,需先跑 meituan_scraper.py（同一数据目录）
+jobui_scraper.py,第三方,Jobui 薪资/岗位样本,写 <data-dir>/processed/jobs_jobui.csv；缓存 raw/jobui/,公开页面；限速；追加写入
+liepin_scraper.py,第三方,猎聘详情 JD 小样本,写 <data-dir>/processed/jobs_master.csv；缓存 raw/liepin/,公开页面；安全中心限流；追加写入
+chrome_collector.py,浏览器,猎聘公开页 Chrome 渲染采集（links / details 两步）,raw/liepin/links_*_chrome.jsonl 再到 processed/jobs_chrome.csv,--mode links|details；两步用同一数据目录
+cdp_fetch.mjs,浏览器,CDP 页面 fetch/求值,stdout/HTML,Node 22+；Chrome 开 remote debugging
+cdp_fetch_new.mjs,浏览器,新版 CDP fetch,stdout/HTML,同上
+cdp_eval.mjs,浏览器,CDP 执行 JS 求值,stdout,同上
+analyze.py,分析,合并/去重/角色分类/薪资年化/快照,读 processed/jobs_*.csv；写 jobs_master_merged.csv 和 jobs_master.xlsx 以及 reports/00-stage1-snapshot.md,依赖第三方抓取输出
+report.py,分析,生成 01–05 报告,读 processed/jobs_master_merged.csv；写 reports/01–05*.md,依赖 analyze 输出
+organize_jobs.py,分析,生成多 sheet 岗位信息整理.xlsx 和 jobs_structured.csv,读 processed/jobs_master_merged.csv 与 jobs_filtered.csv（jobs_removed.csv 可选）,jobs_filtered.csv 来自本包之外的过滤步骤（见 WORKFLOW §3）
+capability_map.py,分析,JD → 技能/能力需求图谱,读 processed/jobs_structured.csv；写 processed/能力图谱.xlsx 和 reports/10-技术与管理能力图谱.md,依赖 organize_jobs.py 输出
+validate_pipeline.py,校验,检查目录/清单/语法/可移植性/泄露（绝对路径·密钥文件·.pyc）,无；stdout 报告,python3 job-intel-pipeline/scripts/validate_pipeline.py

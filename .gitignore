@@ -1,0 +1,11 @@
+# data directories created by the pipeline (scraped data; never commit)
+tmp-jobs-*/
+
+# python / local env
+__pycache__/
+*.pyc
+.venv/
+
+# local browser profiles (cookies) and secrets
+.browser/
+.env

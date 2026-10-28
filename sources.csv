@@ -1,0 +1,19 @@
+﻿company,type,official_url,api_or_method,access,verification,status_notes
+腾讯,大厂,https://careers.tencent.com/search.html,GET https://careers.tencent.com/tencentcareer/api/post/Query,公开 JSON API,A,可采；列表含 Responsibility；Requirement 常为通用提示
+阿里巴巴,大厂,https://talent.alibaba.com/off-campus/position-list,POST https://talent.alibaba.com/position/search,公开 JSON API（自造 XSRF token）,A,可采；列表含 description+requirement
+字节跳动,大厂,https://jobs.bytedance.com/experienced/position,POST https://jobs.bytedance.com/api/v1/search/job/posts,公开 JSON API（portal-channel: society）,A,可采；列表含完整 JD；API 限速明显
+美团,大厂,https://zhaopin.meituan.com/web/position,官方搜索页/已有详情采集,公开页面,A,已有官方数据；见 meituan_scraper.py / meituan_detail.py
+京东,大厂,https://zhaopin.jd.com/web/job/job_info_list/3,POST https://zhaopin.jd.com/web/job/job_list,公开 form API,A,可采；真标题用 positionNameOpen；返回裸数组，需翻页到空
+小红书,大厂,https://job.xiaohongshu.com/social/position,POST https://job.xiaohongshu.com/websiterecruit/position/pageQueryPosition,公开 JSON API,A,可采；pageSize 被忽略，固定 10 条/页；建议 ≥2s
+蚂蚁集团,大厂,https://talent.antgroup.com/off-campus-position,POST https://hrcareersweb.antgroup.com/api/social/position/search,公开 JSON API,A,接口可用；本次返回系统繁忙，需重试/限速
+DeepSeek,AI 创业,https://talent.deepseek.com/,无 API；静态 bundle 内联 JSON,官方静态页,A,可采 29 条；按 bundle hash 解析
+MiniMax,AI 创业,https://www.minimaxi.com/careers,POST https://vrfi1sk8a0.jobs.feishu.cn/api/v1/search/job/posts,公开 Feishu Jobs API,A,可采；列表含完整 JD
+01.AI 零一万物,AI 创业,https://www.01.ai/careers,POST https://01ai.jobs.feishu.cn/api/v1/search/job/posts,公开 Feishu Jobs API,A,可采；列表含完整 JD
+月之暗面 Moonshot,AI 创业,https://careers.kimi.com/ → https://app.mokahr.com/social-recruitment/moonshot/148506,Moka；接口密文，渲染 DOM 抽取,公开页面 + Headless Chrome,A,可采；DOM 卡片含完整 JD
+快手,大厂,https://zhaopin.kuaishou.cn/#/official/social/,GET /recruit/e/api/v1/open/positions/simple（需 sign）,公开页面 + 浏览器,B,需 JS 签名；裸请求 HTTP 200 但 code=-1
+智谱,AI 创业,https://www.zhipuai.cn/zh/joinus → Moka zphz/148983,Moka；接口密文，渲染 DOM 抽取,公开页面 + 浏览器,B,需浏览器渲染；尚未采集
+百度,大厂,https://talent.baidu.com/jobs/social,POST /baidu/web/httpservice/getPostList,登录墙,—,返回 need-login；匿名不可采，建议跳过
+BOSS 直聘,第三方,https://www.zhipin.com,登录态 Chrome + CDP,用户协助登录,C,补充渠道；有 code 37/自定义字体/反爬；不分享 cookie
+Jobui 职友集,第三方,https://www.jobui.com,公开页面/HTML,公开页面,C,薪资样本；结构可能变化
+猎聘,第三方,https://www.liepin.com,公开详情页,公开页面,C,安全中心限流；只做小样本补充
+LinkedIn,海外,https://www.linkedin.com/jobs,官方页面/人工登录,需登录,—,暂未采集；排在官方页之后；不做批量爬取
