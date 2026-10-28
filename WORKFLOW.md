@@ -17,7 +17,7 @@ export JOBINTEL_DATA_DIR="tmp-jobs-$(date +%Y%m%d%H%M)"     # 本次运行的数
 
 - 数据目录的选择规则与布局见 [README §3](README.md)：没指定时，采集脚本会新建 `./tmp-jobs-<yyyyMMddHHmm>`，merge/filter/分析脚本使用最新的一个。
 - Python 3.10+；Node 22+（`cdp_*.mjs`）；Chrome：无头渲染 Moka/JS 页面，BOSS 需要用户登录态；`curl`：探测 API。
-- 不要提交或分享 `.browser/`、数据目录、任何 cookie。
+- 不要提交 `.browser/`、数据目录、任何 cookie。
 
 ---
 

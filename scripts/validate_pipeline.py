@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the shareable pipeline package: required files, manifests, syntax, portability, leaks.
+"""Validate the pipeline package: required files, manifests, syntax, portability, leaks.
 
 Read-only. Syntax is checked with ast, so no .pyc is written (a .pyc embeds the absolute path of the machine it was built on).
 """

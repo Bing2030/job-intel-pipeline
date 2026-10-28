@@ -12,7 +12,7 @@
 - 不绕过登录、验证码、付费墙；
 - 不逆向/伪造签名去突破风控（如快手 `sign`）；
 - 不批量抓取 LinkedIn（需登录且条款限制；排在官方页之后，必要时只做人工定向浏览）；
-- 不分享/提交 `.browser/`、cookie、token、登录态；
+- 不提交 `.browser/`、cookie、token、登录态；
 - 不把第三方原始 HTML/完整 JD 大规模再分发。
 
 ## 采集节奏
@@ -24,9 +24,9 @@
 
 ## 数据存储
 
-- 采集数据与原始 HTML：数据目录 `<data-dir>/`（默认 `./tmp-jobs-<yyyyMMddHHmm>`，已在 `.gitignore`），不提交、不分享；
+- 采集数据与原始 HTML：数据目录 `<data-dir>/`（默认 `./tmp-jobs-<yyyyMMddHHmm>`，已在 `.gitignore`），不提交；
 - 登录态：`.browser/`，gitignored；
-- 分享包：只含代码与文档，不含数据目录、cookie、raw HTML 和个人信息。
+- 仓库只含代码与文档，不含数据目录、cookie、raw HTML 和个人信息。
 
 ## 免责声明
 

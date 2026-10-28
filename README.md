@@ -1,7 +1,7 @@
-# Job Intelligence Pipeline（可分享 / 可复用版）
+# Job Intelligence Pipeline
 
 > 把"岗位搜索 → 官方/第三方采集 → 去重 → 过滤 → 结构化 → 报告/能力图谱"的整条链路沉淀在这里。
-> 本目录只有代码和文档，**不含任何采集数据、个人信息、cookie**；数据在运行时写入"数据目录"（见 §3）。
+> 本目录只有代码和文档，不含采集数据、个人信息、cookie；数据在运行时写入"数据目录"（见 §3）。
 
 ---
 
@@ -89,7 +89,7 @@ python3 job-intel-pipeline/scripts/filter_official.py
 <data-dir>/
 ├── official/     官方采集器、merge_official、filter_official 的输出
 ├── processed/    第三方抓取与分析表（jobs_*.csv、岗位信息整理.xlsx …）
-├── raw/          缓存/抓取的 HTML（含第三方内容，不要分享；BOSS 页面放 raw/boss/）
+├── raw/          缓存/抓取的 HTML（含第三方内容，不要提交；BOSS 页面放 raw/boss/）
 └── reports/      生成的 markdown 报告
 ```
 
@@ -108,7 +108,7 @@ python3 job-intel-pipeline/scripts/filter_official.py
 - 合规：[`COMPLIANCE.md`](COMPLIANCE.md)
 - 排错：[`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)
 
-## 5. 分享前 / 不要分享的内容
+## 5. 不要提交的内容
 
 - `.browser/`（含登录 cookie）
 - 数据目录（`tmp-jobs-*`；`raw/` 里的原始 HTML 可能含个人信息/版权内容）

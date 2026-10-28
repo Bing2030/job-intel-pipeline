@@ -13,7 +13,7 @@ MiniMax,AI 创业,https://www.minimaxi.com/careers,POST https://vrfi1sk8a0.jobs.
 快手,大厂,https://zhaopin.kuaishou.cn/#/official/social/,GET /recruit/e/api/v1/open/positions/simple（需 sign）,公开页面 + 浏览器,B,需 JS 签名；裸请求 HTTP 200 但 code=-1
 智谱,AI 创业,https://www.zhipuai.cn/zh/joinus → Moka zphz/148983,Moka；接口密文，渲染 DOM 抽取,公开页面 + 浏览器,B,需浏览器渲染；尚未采集
 百度,大厂,https://talent.baidu.com/jobs/social,POST /baidu/web/httpservice/getPostList,登录墙,—,返回 need-login；匿名不可采，建议跳过
-BOSS 直聘,第三方,https://www.zhipin.com,登录态 Chrome + CDP,用户协助登录,C,补充渠道；有 code 37/自定义字体/反爬；不分享 cookie
+BOSS 直聘,第三方,https://www.zhipin.com,登录态 Chrome + CDP,用户协助登录,C,补充渠道；有 code 37/自定义字体/反爬；不提交 cookie
 Jobui 职友集,第三方,https://www.jobui.com,公开页面/HTML,公开页面,C,薪资样本；结构可能变化
 猎聘,第三方,https://www.liepin.com,公开详情页,公开页面,C,安全中心限流；只做小样本补充
 LinkedIn,海外,https://www.linkedin.com/jobs,官方页面/人工登录,需登录,—,暂未采集；排在官方页之后；不做批量爬取
